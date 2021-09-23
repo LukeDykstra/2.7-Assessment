@@ -20,7 +20,7 @@ def force_name(message, lower, upper):
             break
         else:
             print("ERROR.{}, please enter text only".format(message))
-        return name #this returns a valid name that is 2-20 characters and A-Z
+    return name #this returns a valid name that is 2-20 characters and A-Z
 
 def force_number(message, lower, upper):
     while True:
