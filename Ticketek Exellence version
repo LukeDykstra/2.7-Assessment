@@ -41,7 +41,7 @@ def force_name(message, lower, upper):
             print("ERROR.{}, please enter text only".format(message))
     return name #this returns a valid name that is 2-20 characters and A-Z
 
-def ticket_booking(car_list):
+def ticket_booking(ticket_list):
     confirmed_booking = []
     total_cost = 0
     ticket_type = force_number("Please enter the number that is corresponding to the type of ticket would you like to book \n \n (1.)  Mitre 10 Mega Stand (Seated) [Cost: $129] \n (2.)  Rear General Admisssion (Standing) [Cost: $185] \n (3.)  North Stand (Seated) [Cost: $230] \n (4.)  Side View (Seated) [Cost: $260] \n (5.)  Front General Admission (Standing) [Cost: $375]",1,5)
@@ -56,13 +56,11 @@ def ticket_booking(car_list):
     concert = ("Rod Stewart - April 2022 - Forsyth Barr")
     reminded_message = ("***Please remember to bring photo ID to the Regent Theatre in order to pay for and collect their tickets***")
 
-    while True:
-        choice = force_number("You have booked in {} ticket(s) of {}. Would you like to confirm? \n \n  (1.)  YES \n  (0.)  NO".format(ticket_quantity, ticket_list[ticket_type]),0,1)
-        if choice == 1:
-            print(reminded_message)
-            break
-        if choice == 0:
-            quit()
+    choice = force_number("You have booked in {} ticket(s) of {}. Would you like to confirm? \n \n  (1.)  YES \n  (0.)  NO".format(ticket_quantity, ticket_list[ticket_type]),0,1)
+    if choice == 1:
+        print(reminded_message)
+    if choice == 0:
+        quit()
 
     confirmed_booking.append("Concert: {}".format(concert))
     confirmed_booking.append("Ticket Type: {}".format(ticket_list[ticket_type])) #this adds all of the variables to confirmed booking list
@@ -97,17 +95,13 @@ def ticket_booking(car_list):
     outF.close()
 
 def main_menu():
-    import time
-    global ticket_list
     ticket_list = ["Mitre 10 Mega Stand (Seated)", 129, "Rear General Admisssion (Standing)", 185, "North Stand (Seated)", 230, "Side View (Seated)", 260, "Front General Admission (Standing)", 375]
     choice = 99
-    while choice != 0:
-        choice = int(input("Please enter your choice: \n \n (1.)  New booking \n (0.)  QUIT"))
-        if choice == 1:
-            ticket_booking(ticket_list)
-        if choice == 0:
-            break
-    print("PROGRAM ENDS")
-    quit()
+    choice = force_number("Please enter your choice: \n \n (1.)  New booking \n (0.)  QUIT",0,1)
+    if choice == 1:
+        ticket_booking(ticket_list)
+    if choice == 0:
+        print("PROGRAM ENDS")
+        quit()
 
 main_menu()
