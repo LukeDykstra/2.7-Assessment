@@ -5,7 +5,7 @@ def unique_code_generator(first_name, last_name):
     number = random.randint(1000000,99999999)
     number = str(number) #this converts the number to a string
     fname_slice = first_name[0:2] #this slices fname to 2 characters
-    user_name = number + fname_slice.upper() + last_name.upper()
+    user_name = number + last_name.upper() + fname_slice.upper()
     return user_name
 
 def get_phone_number(message): #Runs a message through this program
@@ -44,46 +44,39 @@ def force_name(message, lower, upper):
 def ticket_booking(ticket_list):
     confirmed_booking = []
     total_cost = 0
-    ticket_type = force_number("Please enter the number that is corresponding to the type of ticket would you like to book \n \n (1.)  Mitre 10 Mega Stand (Seated) [Cost: $129] \n (2.)  Rear General Admisssion (Standing) [Cost: $185] \n (3.)  North Stand (Seated) [Cost: $230] \n (4.)  Side View (Seated) [Cost: $260] \n (5.)  Front General Admission (Standing) [Cost: $375]",1,5)
+    ticket_type = force_number(" \n Please enter the number that is corresponding to the type of ticket would you like to book \n \n (1.)  Mitre 10 Mega Stand (Seated) $129 \n (2.)  Rear General Admisssion (Standing) $185 \n (3.)  North Stand (Seated) $230 \n (4.)  Side View (Seated) $260 \n (5.)  Front General Admission (Standing) $375",1,5)
     ticket_type = ticket_type*2-2
-    ticket_quantity = force_number("How many ticket(s) for {} would you like?".format(ticket_list[ticket_type]),1,12)
-    first_name = force_name("Please enter your first name",2,20)
-    last_name = force_name("Please enter your last name",2,30)
-    cellphone_number = get_phone_number("Please enter your cellphone number")
+    ticket_quantity = force_number(" \n How many ticket(s) for {} would you like?".format(ticket_list[ticket_type]),1,12)
+    first_name = force_name(" \n Please enter your first name",2,20)
+    last_name = force_name(" \n Please enter your last name",2,30)
+    cellphone_number = get_phone_number(" \n Please enter your cellphone number")
     ticket_cost = ticket_list[ticket_type + 1] * ticket_quantity #calculates the cost of the booking
     ticket_cost += 25
     code = unique_code_generator(first_name, last_name)
     concert = ("Rod Stewart - April 2022 - Forsyth Barr")
+    reminded_message = ( "****Please remember to bring photo ID to the Regent Theatre in order to pay for and collect their tickets***.")
 
-    choice = force_number("You have booked in {} ticket(s) of {}. Would you like to confirm? \n \n  (1.)  YES \n  (0.)  NO".format(ticket_quantity, ticket_list[ticket_type]),0,1)
-    if choice == 1:
-        print("***Please remember to bring photo ID to the Regent Theatre in order to pay for and collect their tickets***")
-        main_menu()
-    if choice == 0:
-        quit()
+    print("\n *** Confirmed Booking ***")
+    print("Concert: {}".format(concert))
+    print("Ticket Type: {}".format(ticket_list[ticket_type]))
+    print("Cost of ticket: ${}".format(ticket_list[ticket_type+1]))
+    print("Total cost of ticket(s) ${} incl $25 fee".format(ticket_cost))
+    print("First name: {}".format(first_name))
+    print("Last name: {}".format(last_name))
+    print("Cellphone number: {}".format(cellphone_number))
+    print("Unique ID: {}".format(code))
+    print("*** End of Confirmed Booking ***")
 
+    #this adds all of the variables to confirmed booking list
     confirmed_booking.append("Concert: {}".format(concert))
-    confirmed_booking.append("Ticket Type: {}".format(ticket_list[ticket_type])) #this adds all of the variables to confirmed booking list
-    confirmed_booking.append("Cost of ticket: ${}".format(ticket_list[ticket_type+1]))
+    confirmed_booking.append("Ticket Type: {}".format(ticket_list[ticket_type]))
     confirmed_booking.append("Quantity of ticket(s):{}".format(ticket_quantity))
-    confirmed_booking.append("Total cost: ${}".format(ticket_cost))
+    confirmed_booking.append("Cost of ticket: ${}".format(ticket_list[ticket_type+1]))
+    confirmed_booking.append("Total cost + $25 fee: ${}".format(ticket_cost))
     confirmed_booking.append("First name: {}".format(first_name))
     confirmed_booking.append("Last name: {}".format(last_name))
     confirmed_booking.append("Cellphone number: {}".format(cellphone_number))
     confirmed_booking.append("Unique Code: {}".format(code))
-
-    print("*** Confirmed Booking ***")
-    print()
-    print("Ticket Type: {}".format(confirmed_booking[0]))
-    print("Concert: {}".format(concert))
-    print("Cost of ticket: {} is ${}".format(confirmed_booking[0], confirmed_booking[1]))
-    print("Total cost of ticket(s) ${} + $25 fee".format(confirmed_booking[3]))
-    print("First name: {}".format(confirmed_booking[4]))
-    print("Last name: {}".format(confirmed_booking[5]))
-    print("Cellphone number: {}".format(confirmed_booking[6]))
-    print("Unique ID: {}".format(confirmed_booking[7]))
-    print()
-    print("*** End of Confirmed Booking ***")
 
     outF = open("orders.txt", "a") #open the text file
     outF.write(" \n ******* TICKETEK ORDER *********** \n")
@@ -92,12 +85,26 @@ def ticket_booking(ticket_list):
         outF.write("{}\n".format(item)) #writes the order of the pizza
         print(item)
     today = date.today()
-    outF.write(" \n Thankyou for booking at TICKETEK, please remember to bring photo ID to the Regent Theatre in order to pay for and collect their tickets \n")
+    outF.write(" \nThankyou for booking at TICKETEK, please remember to bring photo ID to the Regent Theatre in order to pay for and collect their tickets \n")
     outF.write(" \n ********* ORDER COMPLETED: {} *********** \n ".format(today))
     outF.close()
 
+    choice = force_number(" \nYou have booked in {} ticket(s) of {}. Would you like to confirm? \n \n  (1.)  YES \n  (0.)  NO".format(ticket_quantity, ticket_list[ticket_type]),0,1)
+    if choice == 1:
+        decision()
+    if choice == 0:
+        quit()
+
+def decision():
+    choice = force_number("****Please remember to bring photo ID to the Regent Theatre in order to pay for and collect their tickets***. \n \n Would you like to go back to the menu? \n \n (1.)  YES \n (0.)  NO",0,1)
+    if choice == 1:
+        main_menu()
+    if choice == 0:
+        print("PROGRAM ENDS")
+        quit()
+
 def main_menu():
-    print("***********Rod Stewart Concert - Forsyth Barr - Dunedin – April – 2022 ************* \n")
+    print("\n ************* Welcome to TICKETEK ************* \n")
     ticket_list = ["Mitre 10 Mega Stand (Seated)", 129, "Rear General Admisssion (Standing)", 185, "North Stand (Seated)", 230, "Side View (Seated)", 260, "Front General Admission (Standing)", 375]
     choice = 99
     choice = force_number("Please enter your choice: \n \n (1.)  New booking \n (0.)  QUIT",0,1)
