@@ -1,3 +1,4 @@
+
 import random
 from datetime import date
 
@@ -46,8 +47,8 @@ def ticket_booking(ticket_list):
     total_cost = 0
     ticket_type = force_number(" \n \nPlease enter the number that is corresponding to the type of ticket would you like to book \n \n 1.  Mitre 10 Mega Stand (Seated) $129 \n 2.  Rear General Admisssion (Standing) $185 \n 3.  North Stand (Seated) $230 \n 4.  Side View (Seated) $260 \n 5.  Front General Admission (Standing) $375",1,5)
     ticket_type = ticket_type*2-2
-    ticket_quantity = force_number("\n \nHow many ticket(s) for {} would you like?".format(ticket_list[ticket_type]),1,12)
-    print("\n *** Credentials ***")
+    ticket_quantity = force_number ("\n \nHow many ticket(s) for {} would you like?".format(ticket_list[ticket_type]),1,12)
+    print("\n********* Credentials *********")
     first_name = force_name(" Please enter your First name",2,20)
     last_name = force_name(" Please enter your Last name",2,30)
     cellphone_number = get_phone_number(" Please enter your cellphone number")
@@ -68,14 +69,14 @@ def output(confirmed_booking, concert, ticket_list, ticket_quantity, ticket_type
     confirmed_booking.append("Concert: {}".format(concert))  #this adds all of the variables to confirmed booking list
     confirmed_booking.append("Ticket Type: {}".format(ticket_list[ticket_type]))
     confirmed_booking.append("Quantity of ticket(s):{}".format(ticket_quantity))
-    confirmed_booking.append("Cost of ticket: ${}".format(ticket_list[ticket_type+1]))
-    confirmed_booking.append("Total cost incl $25 fee: ${}".format(ticket_cost))
+    confirmed_booking.append("Cost of ticket: ${:0.2f}".format(ticket_list[ticket_type+1]))
+    confirmed_booking.append("Total cost incl $25 fee: ${:0.2f}".format(ticket_cost))
     confirmed_booking.append("First name: {}".format(first_name))
     confirmed_booking.append("Last name: {}".format(last_name))
     confirmed_booking.append("Cellphone number: {}".format(cellphone_number))
     confirmed_booking.append("Unique Code: {}".format(code))
 
-    print("\n *** Confirmed Booking ***")
+    print("\n********* Confirmed Booking *********")
     print("Concert: {}".format(confirmed_booking[0]))
     print("Ticket Type: {}".format(confirmed_booking[1]))
     print("Quantity of ticket(s): {}".format(confirmed_booking[2]))
@@ -85,10 +86,10 @@ def output(confirmed_booking, concert, ticket_list, ticket_quantity, ticket_type
     print("Last name: {}".format(confirmed_booking[6]))
     print("Cellphone number: {}".format(confirmed_booking[7]))
     print("Unique ID: {}".format(confirmed_booking[8]))
-    print(" *** End of Confirmed Booking ***")
+    print("\n********* End of Confirmed Booking *********")
 
     outF = open("orders.txt", "a") #open the text file
-    outF.write(" \n ********* TICKETEK ORDER ********* \n")
+    outF.write(" \n********* TICKETEK ORDER ********* \n")
     for item in confirmed_booking:    #prints each item on the pizza order list
         outF.write("{}\n".format(item)) #writes the order of the pizza
         print(item)
