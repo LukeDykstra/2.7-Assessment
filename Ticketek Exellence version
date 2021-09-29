@@ -56,6 +56,7 @@ def ticket_booking(ticket_list):
     code = unique_code_generator(first_name, last_name)
     concert = ("Rod Stewart - April 2022 - Forsyth Barr")
     choice = force_number(" \nYou have booked in {} ticket(s) for {}. Would you like to confirm your booking? \n \n  1.  YES \n  0.  NO".format(ticket_quantity, ticket_list[ticket_type]),0,1)
+    
     if choice == 1:
         output(confirmed_booking, concert, ticket_list, ticket_quantity, ticket_type, ticket_cost, first_name, last_name, cellphone_number, code)
         print("\n*** Please remember to bring photo ID to the Regent Theatre in order to pay for and collect their tickets *** \n \n \n ")
