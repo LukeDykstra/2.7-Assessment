@@ -1,0 +1,4 @@
+Now = datetime.now() #gets the time and date
+Today = now.strtime(%H:%M”) #formats the date and time
+
+confirmed_booking.append(“Time booked: {}”.format(toady))
